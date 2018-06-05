@@ -24,10 +24,10 @@ https://conda.io/docs/user-guide/install/windows.html
 python CRISPRpic.py -i INPUT -s SEQFILE -w WINDOW
 
 -i INPUT file contains the following information seperated by tab (\t):
-Locus name such as PVT1
-Expected amplicon sequence
-guide RNA seq with PAM site (for 1 and 2) or break point from the 5' end amplicon (for 3)
-the type of enyme - 1:SpCas9, 2:AsCpf1, 3:Custom
+* Locus name such as PVT1
+* Expected amplicon sequence
+* guide RNA seq with PAM site (for 1 and 2) or break point from the 5' end amplicon (for 3)
+* the type of enyme - 1:SpCas9, 2:AsCpf1, 3:Custom
 
 You can find these example cases in example_input.txt
 
