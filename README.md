@@ -41,8 +41,8 @@ You can find an example file at TEST/AAVS1.out.extendedFrags.fastq
 **-d INDEX_SIZE (optional)** is the starting size of index. Default is 8, but larger size such as 12 should be used for when the amplicon contains lots of homologous or low complexity sequences
 
 
-## How to run analysis on your sequencing data
-
+## How to interprete outputs
+*
 
 #### Dependencies
 
