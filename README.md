@@ -5,23 +5,11 @@ A Python script for fast and precise analysis of CRISPR-induced mutations via pr
 **CRISPRpic runs on Python 2.7 or later. You can simply download CRISPRpic.py and run it without further installation.**
 Make sure to put CRISPRpic.py in your path, so it is executable anywhere. Otherwise, place the script in your working directory.
 
-#### Dependencies
-Only dependencies are Pandas and matplotlib, which can be easily installed.
+The script has 2 python package dependencies:
+*pandas
+*matplotlib
 
-On Ubuntu or Debian Linux:
-```
-sudo apt-get install python-matplotlib python-pandas
-```
-On Mac OS X:
-```
-conda install pandas matplotlib
-```
-On Windows 10 using Anaconda Prompt:
-```
-conda install pandas matplotlib
-```
-Anaconda Prompt can be installed on Window10 by the following instruction:
-https://conda.io/docs/user-guide/install/windows.html
+For dependency installation instructions, see Dependencies section (below)
 
 ## Test
 
@@ -56,4 +44,20 @@ You can find an example file at TEST/AAVS1.out.extendedFrags.fastq
 ## How to run analysis on your sequencing data
 
 
+#### Dependencies
+
+On Ubuntu or Debian Linux:
+```
+sudo apt-get install python-matplotlib python-pandas
+```
+On Mac OS X:
+```
+conda install pandas matplotlib
+```
+On Windows 10 using Anaconda Prompt:
+```
+conda install pandas matplotlib
+```
+Anaconda Prompt can be installed on Window10 by the following instruction:
+https://conda.io/docs/user-guide/install/windows.html
 
