@@ -1,9 +1,12 @@
 # CRISPRpic
 
-A Pyrhon script for fast and precise analysis of CRISPR-induced mutations via prefixed index counting (CRISPRpic)
+A Python script for fast and precise analysis of CRISPR-induced mutations via prefixed index counting (CRISPRpic)
 
-CRISPRpic runs on Python 2.7 or later. You can simply download CRISPRpic.py and run it without further installation.
-Only dependecies are Pandas and matplotlib, which can be easily installed.
+**CRISPRpic runs on Python 2.7 or later. You can simply download CRISPRpic.py and run it without further installation.**
+
+
+### Dependencies
+Only dependencies are Pandas and matplotlib, which can be easily installed.
 
 On Ubuntu or Debian Linux:
 ```
