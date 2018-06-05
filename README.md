@@ -25,7 +25,7 @@ https://conda.io/docs/user-guide/install/windows.html
 You can run CRISPRpic.py by running it on the example file in the test/ directory.
 Download CRISPRpic.py and AAVS1.out.extendedFrags.fastq into a folder.
 
-python CRISPRpic.py -i AAVS1_input.txt -w 3 -s AAVS1.out.extendedFrags.fastq
+python CRISPRpic.py -i AAVS1_input.txt -f AAVS1.out.extendedFrags.fastq -w 3
 
 ## Command line usage
 python CRISPRpic.py -i INPUT -s SEQFILE -w WINDOW
@@ -38,7 +38,7 @@ python CRISPRpic.py -i INPUT -s SEQFILE -w WINDOW
 
 You can find these example cases in cas9_list.txt
 
-**-s SEQFILE** is the either single end sequencing data or merged pair end sequencing data by FLASH (see bleow)
+**-f SEQFILE** is the either single end sequencing data or merged pair end sequencing data by FLASH (see bleow)
 
 You can find an example file, AAVS1.out.extendedFrags.fastq in the test/ directory, which is the output of a program called "FLASH (Fast Length Adjustment of SHort reads).
 
