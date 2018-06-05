@@ -48,7 +48,7 @@ You can find an example input file in TEST/AAVS1_input.txt
 
 You can find an example file at TEST/AAVS1.out.extendedFrags.fastq 
 
-####FLASH
+#### FLASH
 FLASH (Fast Length Adjustment of SHort reads)
 
 More information and installation of FLASH can be found:
