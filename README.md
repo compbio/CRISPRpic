@@ -5,7 +5,7 @@ A Python script for fast and precise analysis of CRISPR-induced mutations via pr
 **CRISPRpic runs on Python 2.7 or later. You can simply download CRISPRpic.py and run it without further installation.**
 
 
-### Dependencies
+#### Dependencies
 Only dependencies are Pandas and matplotlib, which can be easily installed.
 
 On Ubuntu or Debian Linux:
