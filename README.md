@@ -21,7 +21,9 @@ Anaconda Prompt can be installed on Window10 by the following instruction:
 https://conda.io/docs/user-guide/install/windows.html
 
 ##################################
+
 Test
+
 ##################################
 
 You can run CRISPRpic.p by running it on the example filein the test/ directory.
@@ -36,6 +38,8 @@ https://ccb.jhu.edu/software/FLASH/
 
 
 ##################################
+
 How to run script
+
 ##################################
 
