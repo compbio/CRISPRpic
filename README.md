@@ -20,9 +20,7 @@ conda install pandas matplotlib
 Anaconda Prompt can be installed on Window10 by the following instruction:
 https://conda.io/docs/user-guide/install/windows.html
 
-##################################
-Test
-##################################
+# Test
 
 You can run CRISPRpic.p by running it on the example filein the test/ directory.
 Download CRISPRpic.py and AAVS1.out.extendedFrags.fastq into a folder.
