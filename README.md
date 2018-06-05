@@ -20,6 +20,13 @@ conda install pandas matplotlib
 Anaconda Prompt can be installed on Window10 by the following instruction:
 https://conda.io/docs/user-guide/install/windows.html
 
+## Test
+
+You can run CRISPRpic.py by running it on the example file in the test/ directory.
+Download CRISPRpic.py and AAVS1.out.extendedFrags.fastq into a folder.
+
+python CRISPRpic.py -i AAVS1_input.txt -w 3 -s AAVS1.out.extendedFrags.fastq
+
 ## Command line usage
 python CRISPRpic.py -i INPUT -s SEQFILE -w WINDOW
 
@@ -42,13 +49,6 @@ https://ccb.jhu.edu/software/FLASH/
 **-w WINDOW** is the size of mutagenic window from the double strand break (DSB). -w 3 means that we only consider a mutation within 3 bp of both directions from the DSB while other mutations outside of this window will be considered as unmodified.
 
 **-d INDEX_SIZE** is the starting size of index. Default is 8, but larger size such as 12 should be used for when the amplicon contains lots of homogolous or low complex sequences
-
-## Test
-
-You can run CRISPRpic.py by running it on the example file in the test/ directory.
-Download CRISPRpic.py and AAVS1.out.extendedFrags.fastq into a folder.
-
-python CRISPRpic.py -i AAVS1_input.txt -w 3 -s AAVS1.out.extendedFrags.fastq
 
 
 ## How to run analysis on your sequencing data
