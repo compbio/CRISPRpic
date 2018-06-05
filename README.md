@@ -29,7 +29,7 @@ python CRISPRpic.py -i INPUT -s SEQFILE -w WINDOW
 * guide RNA seq with PAM site (for 1 and 2) or break point from the 5' end amplicon (for 3)
 * the type of enyme - 1:SpCas9, 2:AsCpf1, 3:Custom
 
-You can find these example cases in example_input.txt
+You can find these example cases in cas9_list.txt
 
 **-s SEQFILE** is the either single end sequencing data or merged pair end sequencing data by FLASH (see bleow)
 
@@ -48,7 +48,7 @@ https://ccb.jhu.edu/software/FLASH/
 You can run CRISPRpic.py by running it on the example file in the test/ directory.
 Download CRISPRpic.py and AAVS1.out.extendedFrags.fastq into a folder.
 
-python CRISPRpic.py -i cas9_list.txt -w 3 -s AAVS1.out.extendedFrags.fastq
+python CRISPRpic.py -i AAVS1_input.txt -w 3 -s AAVS1.out.extendedFrags.fastq
 
 
 ## How to run analysis on your sequencing data
