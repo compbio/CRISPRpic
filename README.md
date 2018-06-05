@@ -44,16 +44,9 @@ python CRISPRpic.py -i INPUT -f SEQFILE -w WINDOW
 
 You can find an example input file in TEST/AAVS1_input.txt
 
-**-f SEQFILE** is a fastq file of single-end sequencing data. If you have paired-end sequencing data, you can merge to single-end using FLASH (see below)
+**-f SEQFILE** is a fastq file of single-end sequencing data. If you have paired-end sequencing data, you can merge to single-end using  a program called Fast Length Adjustment of SHort reads (FLASH: https://ccb.jhu.edu/software/FLASH/)
 
 You can find an example file at TEST/AAVS1.out.extendedFrags.fastq 
-
-#### FLASH
-FLASH (Fast Length Adjustment of SHort reads)
-
-More information and installation of FLASH can be found:
-https://ccb.jhu.edu/software/FLASH/
-
 
 **-w WINDOW** is the size of the mutagenic window from the double strand break (DSB). -w 3 means that we only consider a mutation within 3 bp of both directions from the DSB while other mutations outside of this window will be considered as unmodified.
 
