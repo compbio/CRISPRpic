@@ -33,9 +33,13 @@ You can find these example cases in example_input.txt
 
 -s SEQFILE is the either single end sequencing data or merged pair end sequencing data by FLASH (see bleow)
 
-You can find an example file, AAVS1.out.extendedFrags.fastq in the test/ directory.
+You can find an example file, AAVS1.out.extendedFrags.fastq in the test/ directory, which is the output of a program called "FLASH (Fast Length Adjustment of SHort reads).
 
--w WINDOW is the size of mutagenic window from the double strand break (DSB). -w 3 means that we only consider a mutation within 3 bp for both direction from the DSB while other mutations outside of this window will be considered as unmodified.
+More information and installation of FLASH can be found:
+https://ccb.jhu.edu/software/FLASH/
+
+
+-w WINDOW is the size of mutagenic window from the double strand break (DSB). -w 3 means that we only consider a mutation within 3 bp of both directions from the DSB while other mutations outside of this window will be considered as unmodified.
 
 -d INDEX_SIZE is the starting size of index. Default is 8, but larger size such as 12 should be used for when the amplicon contains homo
 
@@ -46,13 +50,8 @@ Download CRISPRpic.py and AAVS1.out.extendedFrags.fastq into a folder.
 
 python CRISPRpic.py -i cas9_list.txt -w 3 -s AAVS1.out.extendedFrags.fastq
 
-AAVS1.out.extendedFrags.fastq is the output of a program called "FLASH (Fast Length Adjustment of SHort reads)"
 
-More information and installation can be found:
-https://ccb.jhu.edu/software/FLASH/
+## How to run analysis on your sequencing data
 
-
-
-## How to run script
 
 
