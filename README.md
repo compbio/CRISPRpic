@@ -6,8 +6,8 @@ A Python script for fast and precise analysis of CRISPR-induced mutations via pr
 Make sure to put CRISPRpic.py in your path, so it is executable anywhere. Otherwise, place the script in your working directory.
 
 The script has 2 python package dependencies:
-*pandas
-*matplotlib
+* pandas
+* matplotlib
 
 For dependency installation instructions, see Dependencies section (below)
 
