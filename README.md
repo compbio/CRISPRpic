@@ -42,7 +42,7 @@ You can find an example file at TEST/AAVS1.out.extendedFrags.fastq
 
 
 ## How to interprete outputs
-Outpue files will be generated in a folder name after the locus of your interest such as *TP53*
+Outpue files will be generated in a folder named after the locus of your interest such as *TP53*
 * *TP53*_freq_table.txt: main table that shows the frequency of mutation types
 * *TP53*_mut_freq.txt: a table contains the read sequences and their classification
 * \*.pdf: bar charts show the frequency of insertions / deletions
