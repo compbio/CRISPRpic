@@ -17,7 +17,8 @@ You can test CRISPRpic.py by running it on the example input files (AAVS1.out.ex
 
 Command for test:
 ```
-python CRISPRpic.py -i AAVS1_input.txt -f AAVS1.out.extendedFrags.fastq -w 3
+cd TEST
+python ../CRISPRpic.py -i AAVS1_input.txt -f AAVS1.out.extendedFrags.fastq -w 3
 ```
 ## Command line usage
 ```
