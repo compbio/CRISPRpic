@@ -56,6 +56,7 @@ On Ubuntu or Debian Linux:
 sudo apt-get install python-matplotlib python-pandas
 ```
 On Mac OS X:
+Install conda (https://conda.io/docs/user-guide/install/macos.html)
 ```
 conda install pandas matplotlib
 ```
