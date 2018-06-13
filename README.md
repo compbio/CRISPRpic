@@ -2,6 +2,8 @@
 
 A Python script for fast and precise analysis of CRISPR-induced mutations via prefixed index counting (CRISPRpic)
 
+**If this is your first to run Python, see the manual**, [Manual_Beginner_Mac.pdf](Manual_Beginner_Mac.pdf)
+
 **CRISPRpic runs on Python 2.7 or later. You can simply download CRISPRpic.py and run it without further installation.**
 Make sure to put CRISPRpic.py in your path, so it is executable anywhere. Otherwise, place the script in your working directory.
 
@@ -11,7 +13,6 @@ The script has 2 python package dependencies:
 
 For dependency installation instructions, see Dependencies section (below)
 
-**If this is your first to run Python, see the manual**, [Manual_Beginner_Mac.pdf](Manual_Beginner_Mac.pdf)
 
 ## Test
 
