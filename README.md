@@ -11,7 +11,7 @@ The script has 2 python package dependencies:
 
 For dependency installation instructions, see Dependencies section (below)
 
-**If this is your first to run Python, see the manual, "Manual_Beginner_Mac.pdf"**(.Manual_Beginner_Mac.pdf)
+**If this is your first to run Python, see the manual, "Manual_Beginner_Mac.pdf"**(CRISPRpic/Manual_Beginner_Mac.pdf)
 
 ## Test
 
