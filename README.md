@@ -10,7 +10,7 @@ The script has 2 python package dependencies:
 * matplotlib
 
 For dependency installation instructions, see Dependencies section (below)
-**If this is your first to run Python, see this manual, "Manual_Beginner_Mac.pdf" (Manual_Beginner_Mac.pdf)**
+**If this is your first to run Python, see this manual, "Manual_Beginner_Mac.pdf"**(./Manual_Beginner_Mac.pdf)
 
 ## Test
 
