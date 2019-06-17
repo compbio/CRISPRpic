@@ -190,23 +190,25 @@ def get_amplicon(locus,amplicon):
             if re.search(first8,line1[0]) and re.search(last8,line1[0]):
                 if re.search(adapt5,line1[0]) or re.search(adapt3,line1[0]):
                     amp = line1[0].split(first8)
-                    amp.pop(0)
+                    first_loc = amp.pop(0)
                     remain_seq = first8.join(amp)
                     amp1 = remain_seq.split(last8)
-                    amp1.pop()
+                    last_loc = amp1.pop()
                     remain_seq1 = last8.join(amp1)
-                    seq_file.write(first8+remain_seq1+last8+"\t"+line1[1]+"\t"+line1[2]+"\n")
+                    if len(first_loc) < 50 and len(last_loc) < 50:
+                        seq_file.write(first8+remain_seq1+last8+"\t"+line1[1]+"\t"+line1[2]+"\t"+line1[0]+"\n")
             else:
                 revcom = ReverseComplement(line1[0])
                 if re.search(first8,revcom) and re.search(last8,revcom):
                     if re.search(adapt5,revcom) or re.search(adapt3,revcom):
                         amp = revcom.split(first8)
-                        amp.pop(0)
+                        first_loc = amp.pop(0)
                         remain_seq = first8.join(amp)
                         amp1 = remain_seq.split(last8)
-                        amp1.pop()
+                        last_loc = amp1.pop()
                         remain_seq1 = last8.join(amp1)
-                        seq_file.write(first8+remain_seq1+last8 +"\t"+line1[1]+"\t"+line1[2]+"\n")
+                        if len(first_loc) < 50 and len(last_loc) < 50:
+                            seq_file.write(first8+remain_seq1+last8 +"\t"+line1[1]+"\t"+line1[2]+"\t"+line1[0]+"\n")
         seq_file.close()
 
 def make_mutseq(locus,window_size,upstr,downstr,enz_type):
@@ -501,7 +503,7 @@ def mut_freq(locus,upstr,downstr,window_size,motif_len_up,motif_len_down,enz_typ
             up_index_uniq[peptide] += 1
 
     fout = open(locus + "/intermediate_files/" + locus + "_mut_freq.txt","w")
-    fout.write("Aligned_seq" + "\t" + "Seq_len" + "\t" + "Counts" + "\t" + "Type" + "\t" + "Subtyp" + "\t" + "Source" + "\t" + "Original_seq" + "\n")
+    fout.write("Aligned_seq" + "\t" + "Seq_len" + "\t" + "Counts" + "\t" + "Type" + "\t" + "Subtyp" + "\t" + "Source" + "\t" + "Original_seq" + "\t" + "Seq_input_fastq" + "\n")
     with open(locus + "/intermediate_files/amplicon.txt") as f:
         for lines in f:
             line = lines.rstrip().split("\t")
@@ -512,18 +514,18 @@ def mut_freq(locus,upstr,downstr,window_size,motif_len_up,motif_len_down,enz_typ
                 align_list = ",".join(align_seqs[line[0]])
                 call_list = ",".join(call_type[line[0]])
                 if re.search("WT",call_list ):
-                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\n")
+                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\t" + line[3] + "\n")
                 elif re.search("Del",call_list ):
-                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\n")
+                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\t" + line[3] + "\n")
                 elif re.search("Ins",call_list ):
-                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Ins" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\n")
+                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Ins" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\t" + line[3] + "\n")
                 elif re.search("Unmodified",call_list ):
-                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Unmodified" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\n")
+                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Unmodified" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\t" + line[3] + "\n")
                 elif re.search("Sub",call_list ):
-                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\n")
+                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\t" + line[3] + "\n")
                 else:
                     sys.stderr.write(call_list+"\n")
-                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "WT_Un" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\n")
+                    fout.write(align_list + "\t" + line[1] + "\t" + line[2] + "\t" + "WT_Un" + "\t" +  type_list + "\t" + "indexed" + "\t" + line[0] + "\t" + line[3] + "\n")
             else:
                 upflag = 0
                 ishift_count = 0
@@ -543,7 +545,7 @@ def mut_freq(locus,upstr,downstr,window_size,motif_len_up,motif_len_down,enz_typ
                     ishift_check=0
                     if ishift_count != 0:
                         if int(i - ishift_count) < window_size:
-                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "NA" + "\t" +  type_list + "\t" + str(i)+","+str(ishift_count)+",iNA" + "\t" + "NA" + "\n")
+                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "NA" + "\t" +  type_list + "\t" + str(i)+","+str(ishift_count)+",iNA" + "\t" + "NA" + "\t" + line[3] + "\n")
                             ishift_check += 1
 
                     if ishift_check == 0:
@@ -560,56 +562,56 @@ def mut_freq(locus,upstr,downstr,window_size,motif_len_up,motif_len_down,enz_typ
                                 else:
                                     jshift_count += 1
                         if down_flag == 0:
-                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "NA" + "\t" +  type_list + "\t" + "NoDown" + "\t" + "NA" + "\n")
+                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "NA" + "\t" +  type_list + "\t" + "NoDown" + "\t" + "NA" + "\t" + line[3] + "\n")
                         else:
                             if i == 0 and j == 0:
                                 if split_down[0] == "":
-                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  "wt" + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  "wt" + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                 else:
                                     align_seq = split_up[0] + up_indexs[i] + split_down[0].lower() + down_indexs[j] + split_down[1]
-                                    fout.write(align_seq + "\t" + line[1] + "\t" + line[2] + "\t" + "Ins" + "\t" +  split_down[0] + "\t" + str(i) + "," + str(j) + "\t" + line[0] + "\n")
+                                    fout.write(align_seq + "\t" + line[1] + "\t" + line[2] + "\t" + "Ins" + "\t" +  split_down[0] + "\t" + str(i) + "," + str(j) + "\t" + line[0] + "\t" + line[3] + "\n")
                             else:
                                 if split_down[0] == "":
                                     align_seq = split_up[0] + up_indexs[i] + "-"*(i+j) + down_indexs[j] + split_down[1]
-                                    fout.write(align_seq + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  str(i) + "," + str(j) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                    fout.write(align_seq + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  str(i) + "," + str(j) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                 else:
                                     jshift_check=0
                                     if jshift_count != 0:
                                         if int(j - jshift_count) < window_size:
-                                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "NA" + "\t" +  type_list + "\t" + str(j)+","+str(jshift_count)+",jNA" + "\t" + "NA" + "\n")
+                                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "NA" + "\t" +  type_list + "\t" + str(j)+","+str(jshift_count)+",jNA" + "\t" + "NA" + "\t" + line[3] + "\n")
                                             jshift_check += 1
                                     if jshift_check == 0:
                                         i_index = i - ishift_count
                                         j_index = j - jshift_count
                                         remain_size = len(split_down[0]) - ishift_count - jshift_count
                                         if remain_size > (i_index+j_index):
-                                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Ins" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + split_down[0] + "\t" + line[0] + "\n")
+                                            fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Ins" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + split_down[0] + "\t" + line[0] + "\t" + line[3] + "\n")
                                         elif remain_size == (i_index+j_index):
                                             if i_index > window_size and j_index > window_size:
                                                 ref_frag = target1[-(window_size):] + target2[:window_size]
                                                 remain_frag = split_down[0][(i-window_size):(i-window_size+6)]
                                                 if ref_frag == remain_frag:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\t" + line[3] + "\n")
                                                 else:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\t" + line[3] + "\n")
                                             elif i_index == 0:
                                                 compare_size = min(remain_size,window_size)
                                                 ref_frag = target2[:compare_size]
                                                 remain_frag = split_down[0][:compare_size]
                                                 if ref_frag == remain_frag:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                                 else:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                             elif j_index == 0:
                                                 compare_size = min(remain_size,window_size)
                                                 ref_frag = target1[-(compare_size):]
                                                 remain_frag = split_down[0][-(compare_size):]
                                                 if ref_frag == remain_frag:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag  + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag  + "\t" + line[0] + "\t" + line[3] + "\n")
                                                 else:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\t" + line[3] + "\n")
                                             else:
-                                                fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Sub" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                         else:
                                             if i_index == 0:
                                                 compare_size = min(remain_size,window_size)
@@ -617,24 +619,24 @@ def mut_freq(locus,upstr,downstr,window_size,motif_len_up,motif_len_down,enz_typ
                                                 remain_frag = split_down[0][:compare_size]
                                                 if ref_frag == remain_frag:
                                                     if compare_size == window_size:
-                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                                     else:
-                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                                 else:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Complexs_Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Complexs_Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                             elif j_index == 0:
                                                 compare_size = min(remain_size,window_size)
                                                 ref_frag = target1[-(compare_size):]
                                                 remain_frag = split_down[0][-(compare_size):]
                                                 if ref_frag == remain_frag:
                                                     if compare_size == window_size:
-                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\n")
+                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "WT" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + ref_frag + "," + remain_frag + "\t" + line[0] + "\t" + line[3] + "\n")
                                                     else:
-                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                        fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                                 else:
-                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Complexs_Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                    fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Complexs_Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t" + line[3] + "\n")
                                             else:
-                                                fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Complexs_Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\n")
+                                                fout.write(line[0] + "\t" + line[1] + "\t" + line[2] + "\t" + "Complexs_Del" + "\t" +  str(i) + "," + str(j) +"|"+ str(ishift_count) + "," + str(jshift_count) + "\t" + "UpDown" + "\t" + line[0] + "\t"  + line[3] + "\n")
     fout.close()
 
 def freq_summary(locus,upstr,downstr):
@@ -677,9 +679,13 @@ def freq_summary(locus,upstr,downstr):
                 if line[5] == "indexed":
                     del_ind = line[4].split(",")[0]
                     split = del_ind.split("_")
-                    upDel = int(split[0].replace("5DEL",""))
-                    downDel = int(split[1].replace("3DEL",""))
-                    del_bp = upDel + downDel
+                    del_bp = 1
+                    if len(split) == 2:
+                        upDel = int(split[0].replace("5DEL",""))
+                        downDel = int(split[1].replace("3DEL",""))
+                        del_bp = upDel + downDel
+                    else:
+                        del_ind = line[4].split(",")[1]
 
                     if line[4] in del_mut_freq:
                         del_mut_freq[line[4]] += int(line[2])
@@ -801,62 +807,63 @@ def freq_summary(locus,upstr,downstr):
         mut = "3DEL" + str(i)
         del_pos_freq.setdefault(mut,0)
 
-    with open(locus + "/intermediate_files/del_freq.txt") as f:
-        next(f)
-        for lines in f:
-            line = lines.rstrip().split("\t")
-            dels = line[0].split(",")
-            count = 0
-            del_count = {}
-            for Del in dels:
-                if not re.search("OneDel",Del):
-                    count += 1
-                    split = Del.split("_")
-                    upDel = int(split[0].replace("5DEL",""))
-                    downDel = int(split[1].replace("3DEL",""))
-                    if downDel >= 0 and upDel >= 0:
-                        for i in range(0,upDel+1):
-                            mut = "5DEL"+str(i)
-                            if mut in del_count:
-                                del_count[mut] += 1
-                            else:
-                                del_count.setdefault(mut,0)
-                                del_count[mut] += 1
-                        for j in range(0,downDel+1):
-                            mut = "3DEL"+str(j)
-                            if mut in del_count:
-                                del_count[mut] += 1
-                            else:
-                                del_count.setdefault(mut,0)
-                                del_count[mut] += 1
-                    elif downDel < 0:
-                        for i in range(-downDel+1,upDel+1):
-                            mut = "5DEL"+str(i)
-                            if mut in del_count:
-                                del_count[mut] += 1
-                            else:
-                                del_count.setdefault(mut,0)
-                                del_count[mut] += 1
-                    elif upDel < 0:
-                        for i in range(-upDel+1,downDel+1):
-                            mut = "3DEL"+str(i)
-                            if mut in del_count:
-                                del_count[mut] += 1
-                            else:
-                                del_count.setdefault(mut,0)
-                                del_count[mut] += 1
-            for del_mut in del_count:
-                ratio = float(del_count[del_mut]) / float(count)
-                freq =  ratio * float(line[1])
-                del_pos_freq[del_mut] += freq
-    fout = open(locus + "/intermediate_files/" + locus + "_delPos_freq.txt","w")
-    for i in range(uplen-1,0,-1):
-        mut = "5DEL" + str(i)
-        fout.write(mut + "\t" + str(del_pos_freq[mut]) + "\n")
-    for i in range(1,downlen):
-        mut = "3DEL" + str(i)
-        fout.write(mut + "\t" + str(del_pos_freq[mut]) + "\n")
-    fout.close()
+    if os.path.getsize(locus + "/intermediate_files/del_freq.txt") > 0:
+        with open(locus + "/intermediate_files/del_freq.txt") as f:
+            next(f)
+            for lines in f:
+                line = lines.rstrip().split("\t")
+                dels = line[0].split(",")
+                count = 0
+                del_count = {}
+                for Del in dels:
+                    if not re.search("OneDel",Del):
+                        count += 1
+                        split = Del.split("_")
+                        upDel = int(split[0].replace("5DEL",""))
+                        downDel = int(split[1].replace("3DEL",""))
+                        if downDel >= 0 and upDel >= 0:
+                            for i in range(0,upDel+1):
+                                mut = "5DEL"+str(i)
+                                if mut in del_count:
+                                    del_count[mut] += 1
+                                else:
+                                    del_count.setdefault(mut,0)
+                                    del_count[mut] += 1
+                            for j in range(0,downDel+1):
+                                mut = "3DEL"+str(j)
+                                if mut in del_count:
+                                    del_count[mut] += 1
+                                else:
+                                    del_count.setdefault(mut,0)
+                                    del_count[mut] += 1
+                        elif downDel < 0:
+                            for i in range(-downDel+1,upDel+1):
+                                mut = "5DEL"+str(i)
+                                if mut in del_count:
+                                    del_count[mut] += 1
+                                else:
+                                    del_count.setdefault(mut,0)
+                                    del_count[mut] += 1
+                        elif upDel < 0:
+                            for i in range(-upDel+1,downDel+1):
+                                mut = "3DEL"+str(i)
+                                if mut in del_count:
+                                    del_count[mut] += 1
+                                else:
+                                    del_count.setdefault(mut,0)
+                                    del_count[mut] += 1
+                for del_mut in del_count:
+                    ratio = float(del_count[del_mut]) / float(count)
+                    freq =  ratio * float(line[1])
+                    del_pos_freq[del_mut] += freq
+        fout = open(locus + "/intermediate_files/" + locus + "_delPos_freq.txt","w")
+        for i in range(uplen-1,0,-1):
+            mut = "5DEL" + str(i)
+            fout.write(mut + "\t" + str(del_pos_freq[mut]) + "\n")
+        for i in range(1,downlen):
+            mut = "3DEL" + str(i)
+            fout.write(mut + "\t" + str(del_pos_freq[mut]) + "\n")
+        fout.close()
 
     index_wt = 0
     index_unmod = 0
@@ -905,7 +912,7 @@ def freq_summary(locus,upstr,downstr):
     new_total = total-tbd
     summary.write("classified_amp" + "\t" + str(new_total) + "\n");
     wt_count = index_wt+index_unmod+pattern_wt
-    wt_precnt = float(wt_count) / float(new_total)
+    wt_precnt = float(wt_count) / float(total)
     summary.write("WT" + "\t" + str(wt_count) + "\t" + str(wt_precnt) + "\n")
     sub_count = index_sub + pattern_sub
     sub_precnt = float(sub_count)/ float(total)
@@ -929,43 +936,45 @@ def plot_freq(locus):
     freq = []
     count = 1
     middle = 0
-    with open(locus + "/intermediate_files/" + locus + "_delPos_freq.txt") as f:
-        for lines in f:
-            line = lines.rstrip().split("\t")
-            if line[0] == '5DEL1':
-                middle = count
-            index.append(count)
-            label.append(line[0])
-            freq.append(float(line[1]))
-            count += 1
-    plt.bar(index,freq, width = 1, color = "#f08080")
-    plt.xlabel('Deletion Position', size=10)
-    plt.ylabel('Deletion Count', size=10)
-    plt.title(locus)
-    plt.axvline(middle+0.5, linestyle='--', lw=0.2)
-    plt.savefig(locus + "/" + locus + '_del_dist.pdf', format='pdf')
-    plt.close()
+    if os.path.exists(locus + "/intermediate_files/" + locus + "_delPos_freq.txt")
+        with open(locus + "/intermediate_files/" + locus + "_delPos_freq.txt") as f:
+            for lines in f:
+                line = lines.rstrip().split("\t")
+                if line[0] == '5DEL1':
+                    middle = count
+                index.append(count)
+                label.append(line[0])
+                freq.append(float(line[1]))
+                count += 1
+        plt.bar(index,freq, width = 1, color = "#f08080")
+        plt.xlabel('Deletion Position', size=10)
+        plt.ylabel('Deletion Count', size=10)
+        plt.title(locus)
+        plt.axvline(middle+0.5, linestyle='--', lw=0.2)
+        plt.savefig(locus + "/" + locus + '_del_dist.pdf', format='pdf')
+        plt.close()
 
-    del_freq = {}
-    with open(locus + "/intermediate_files/del_size_dist.txt") as f:
-        for lines in f:
-            line = lines.rstrip().split("\t")
-            del_freq[int(line[0])] = int(line[1])
-            largest_del = int(line[0])
-    index = []
-    freq = []
-    for i in range(1,largest_del+1):
-        index.append(i)
-        if i in del_freq:
-            freq.append(del_freq[i])
-        else:
-            freq.append(0)
-    plt.bar(index,freq, width = 1, color = "#f08080")
-    plt.xlabel('Deletion Size', size=10)
-    plt.ylabel('Counts', size=10)
-    plt.title(locus)
-    plt.savefig(locus + "/" + locus + '_delSize_dist.pdf', format='pdf')
-    plt.close()
+    if os.path.exists(locus + "/intermediate_files/del_size_dist.txt")
+        del_freq = {}
+        with open(locus + "/intermediate_files/del_size_dist.txt") as f:
+            for lines in f:
+                line = lines.rstrip().split("\t")
+                del_freq[int(line[0])] = int(line[1])
+                largest_del = int(line[0])
+        index = []
+        freq = []
+        for i in range(1,largest_del+1):
+            index.append(i)
+            if i in del_freq:
+                freq.append(del_freq[i])
+            else:
+                freq.append(0)
+        plt.bar(index,freq, width = 1, color = "#f08080")
+        plt.xlabel('Deletion Size', size=10)
+        plt.ylabel('Counts', size=10)
+        plt.title(locus)
+        plt.savefig(locus + "/" + locus + '_delSize_dist.pdf', format='pdf')
+        plt.close()
 
     mutType_count = {}
     with open(locus + "/" + locus + "_freq_table.txt") as f:
