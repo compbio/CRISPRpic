@@ -21,7 +21,8 @@ You can test CRISPRpic.py by running it on the example input files (AAVS1.out.ex
 Command for test:
 ```
 cd TEST
-python ../CRISPRpic.py -i AAVS1_input.txt -f AAVS1.out.extendedFrags.fastq -w 3
+python DOWNLOAD_DIR/CRISPRpic.py -i AAVS1_input.txt -f AAVS1.out.extendedFrags.fastq -w 3
+DOWNLOAD_DIR is where CRISPRpic.py was downloaded.
 ```
 ## Command line usage
 ```
@@ -69,4 +70,8 @@ conda install pandas matplotlib
 ```
 Anaconda Prompt can be installed on Window10 by the following instruction:
 https://conda.io/docs/user-guide/install/windows.html
+
+
+FLASH installation:
+https://ccb.jhu.edu/software/FLASH/
 
