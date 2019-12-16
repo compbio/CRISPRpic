@@ -936,7 +936,7 @@ def plot_freq(locus):
     freq = []
     count = 1
     middle = 0
-    if os.path.exists(locus + "/intermediate_files/" + locus + "_delPos_freq.txt")
+    if os.path.exists(locus + "/intermediate_files/" + locus + "_delPos_freq.txt"):
         with open(locus + "/intermediate_files/" + locus + "_delPos_freq.txt") as f:
             for lines in f:
                 line = lines.rstrip().split("\t")
@@ -954,7 +954,7 @@ def plot_freq(locus):
         plt.savefig(locus + "/" + locus + '_del_dist.pdf', format='pdf')
         plt.close()
 
-    if os.path.exists(locus + "/intermediate_files/del_size_dist.txt")
+    if os.path.exists(locus + "/intermediate_files/del_size_dist.txt"):
         del_freq = {}
         with open(locus + "/intermediate_files/del_size_dist.txt") as f:
             for lines in f:
