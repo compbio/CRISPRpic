@@ -69,7 +69,7 @@ On Windows 10 using Anaconda Prompt:
 conda install pandas matplotlib
 ```
 Anaconda Prompt can be installed on Window10 by the following instruction:
-https://conda.io/docs/user-guide/install/windows.html
+https://docs.anaconda.com/anaconda/install/windows/
 
 
 FLASH installation:
